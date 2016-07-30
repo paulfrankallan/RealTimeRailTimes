@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StationsActivity extends AppCompatActivity {
@@ -95,6 +98,16 @@ public class StationsActivity extends AppCompatActivity {
                     "Whitehead",
                     "Yorkgate"
             };
+
+            List<String> stationsList = new ArrayList<>(Arrays.asList(stations));
+
+            ArrayAdapter<String> stationsAdapter = new ArrayAdapter<>(getActivity(),
+                                                                            R.layout.list_item_station,
+                                                                            R.id.list_item_station_textview,
+                                                                            stationsList);
+
+            ListView stationsListView = (ListView) rootView.findViewById(R.id.listview_stations);
+            stationsListView.setAdapter(stationsAdapter);
 
             return rootView;
         }
