@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StationsActivity extends AppCompatActivity {
 
     @Override
@@ -32,6 +35,67 @@ public class StationsActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_stations, container, false);
+
+            String[] stations = {
+                    "Adelaide",
+                    "Antrim",
+                    "Ballycarry",
+                    "Ballymena",
+                    "Ballymoney",
+                    "Balmoral",
+                    "Bangor",
+                    "Bangor West",
+                    "Belfast Central",
+                    "Bellarena",
+                    "Botanic",
+                    "Carnalea",
+                    "Carrickfergus",
+                    "Castlerock",
+                    "City Hospital",
+                    "Clipperstown",
+                    "Coleraine",
+                    "Cullybackey",
+                    "Cultra",
+                    "Derriaghy",
+                    "Dhu Varren",
+                    "Downshire",
+                    "Drogheda",
+                    "Dublin Connolly",
+                    "Dundalk",
+                    "Dunmurry",
+                    "Finaghy",
+                    "Glynn",
+                    "Great Victoria St",
+                    "Greenisland",
+                    "Helen's Bay",
+                    "Hilden",
+                    "Holywood",
+                    "Jordanstown",
+                    "Lambeg",
+                    "Larne Harbour",
+                    "Larne Town",
+                    "Lisburn",
+                    "Londonderry",
+                    "Lurgan",
+                    "Magheramorne",
+                    "Marino",
+                    "Moira",
+                    "Mossley West",
+                    "Newry",
+                    "Portadown",
+                    "Portrush",
+                    "Poyntzpass",
+                    "Scarva",
+                    "Seahill",
+                    "Sydenham",
+                    "Titanic Quarter",
+                    "Trooperslane",
+                    "University",
+                    "Whiteabbey",
+                    "Whitehead",
+                    "Yorkgate"
+            };
+
             return rootView;
         }
     }
