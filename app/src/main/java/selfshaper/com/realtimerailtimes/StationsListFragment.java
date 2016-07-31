@@ -1,5 +1,6 @@
 package selfshaper.com.realtimerailtimes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -66,6 +67,9 @@ public class StationsListFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                         Station station = stationsAdapter.getItem(position);
+                        Intent intent = new Intent(getActivity(), StationBoardActivity.class)
+                                .putExtra(Intent.EXTRA_TEXT, station.getCode());
+                        startActivity(intent);
                     }
                 });
             }
