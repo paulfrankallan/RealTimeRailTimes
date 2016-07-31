@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="horizontal"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:gravity="center_vertical"
+android:minHeight="?android:attr/listPreferredItemHeight"
+android:padding="10dp">
+
+    <TextView android:id="@+id/list_item_service_time_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="22dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:text="13:46"/>
+
+    <TextView android:id="@+id/list_item_service_destination_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="22dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:text="Bangor"/>
+
+    <TextView android:id="@+id/list_item_service_platform_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="22dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:text="1"/>
+
+    <TextView android:id="@+id/list_item_service_expected_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="22dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:text="On time"/>
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-package selfshaper.com.realtimerailtimes.model;
+package selfshaper.com.realtimerailtimes.model.stations;
 
 /**
  * Created by Paul.Allan on 30/07/2016.

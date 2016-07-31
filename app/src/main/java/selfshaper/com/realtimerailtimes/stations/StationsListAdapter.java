@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import selfshaper.com.realtimerailtimes.R;
-import selfshaper.com.realtimerailtimes.model.Station;
+import selfshaper.com.realtimerailtimes.model.stations.Station;
 
 /**
  * Created by Paul.Allan on 31/07/2016.

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,8 +19,8 @@ import selfshaper.com.realtimerailtimes.R;
 import selfshaper.com.realtimerailtimes.stationBoard.StationBoardActivity;
 import selfshaper.com.realtimerailtimes.api.OpenDataClient;
 import selfshaper.com.realtimerailtimes.api.OpenDataTransLinkAPI;
-import selfshaper.com.realtimerailtimes.model.Station;
-import selfshaper.com.realtimerailtimes.model.Stations;
+import selfshaper.com.realtimerailtimes.model.stations.Station;
+import selfshaper.com.realtimerailtimes.model.stations.Stations;
 
 /**
  * Created by Paul.Allan on 30/07/2016.
@@ -37,23 +36,20 @@ public class StationsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_stations, container, false);
-        getStationNames(rootView);
+        populateStationNames(rootView);
         return rootView;
     }
 
-    private List<String> getStationNames(final View rootView) {
-
-        final List<String> stationNames = new ArrayList<>();
+    private void populateStationNames(final View rootView) {
 
         final OpenDataTransLinkAPI apiService =
-                OpenDataClient.getClient().create(OpenDataTransLinkAPI.class);
+                OpenDataClient.getClient(false).create(OpenDataTransLinkAPI.class);
 
         Call<Stations> call = apiService.stations();
         call.enqueue(new Callback<Stations>() {
             @Override
             public void onResponse(Call<Stations> call, Response<Stations> rStations) {
                 List<Station> stations = rStations.body().getStations();
-                for (Station station : stations) stationNames.add(station.getName());
                 Log.d(TAG, "Number of getStations received: " + stations.size());
 
                 final ListView stationsListView = (ListView)
@@ -80,7 +76,5 @@ public class StationsListFragment extends Fragment {
                 Log.e(TAG, t.toString());
             }
         });
-
-        return stationNames;
     }
 }
