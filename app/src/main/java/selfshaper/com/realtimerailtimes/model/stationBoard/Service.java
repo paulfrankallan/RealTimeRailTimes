@@ -2,7 +2,11 @@ package selfshaper.com.realtimerailtimes.model.stationBoard;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Paul.Allan on 30/07/2016.
@@ -29,11 +33,14 @@ public class Service {
     //@Element
     //public String ArriveTime;
 
-    //@Element
-    //public String DepartTime;
+    @Element
+    public DepartTime DepartTime;
 
-    //@Element
-    //public String Platform;
+    @Element
+    public Platform Platform;
+
+    @Element
+    public Destination1 Destination1;
 
     //@Element
     //public String SecondaryServiceStatus;
@@ -41,8 +48,8 @@ public class Service {
     //@Element
     //public String ServiceStatus;
 
-    //@Element
-    //public String ExpectedDepartTime;
+    @Element
+    public ExpectedDepartTime ExpectedDepartTime;
 
     //@Element
     //public String ExpectedArriveTime;
@@ -99,17 +106,14 @@ public class Service {
     public String Origin1;
 
     @Element
-    public String Destination1;
-
-    @Element
     public String Via;
 
     @Element
     public String Coaches1;
 
     @Element
-    public String Incident;
+    public String Incident;*/
 
     @Element
-    public String Dest1CallingPoints;*/
+    public Dest1CallingPoints Dest1CallingPoints;
 }

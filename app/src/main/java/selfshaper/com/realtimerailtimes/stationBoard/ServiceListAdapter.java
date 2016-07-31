@@ -53,7 +53,10 @@ public class ServiceListAdapter extends ArrayAdapter<Service> {
         }
 
         Service service = data.get(position);
-        //holder.txtServiceTime.setText(service.Destination1);
+        holder.txtServiceTime.setText(service.DepartTime.time);
+        holder.txtServicePlatform.setText(service.Platform.Number);
+        holder.txtServiceDestination.setText(service.Destination1.name);
+        holder.txtServiceExpected.setText(service.ExpectedDepartTime.time);
 
         return row;
     }

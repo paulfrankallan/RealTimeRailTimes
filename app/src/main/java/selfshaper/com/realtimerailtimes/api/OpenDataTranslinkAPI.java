@@ -11,7 +11,6 @@ import selfshaper.com.realtimerailtimes.model.stations.Stations;
  */
 public interface OpenDataTransLinkAPI {
 
-
     // Example StationBoard request
     // http://apis.opendatani.gov.uk/translink/
     @GET("translink/")
