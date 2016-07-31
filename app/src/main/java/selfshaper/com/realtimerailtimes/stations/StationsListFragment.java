@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import java.net.Socket;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,9 +30,6 @@ import selfshaper.com.realtimerailtimes.model.stations.Stations;
 public class StationsListFragment extends Fragment {
 
     private static final String TAG = StationsListFragment.class.getSimpleName();
-
-    public StationsListFragment() {
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +73,14 @@ public class StationsListFragment extends Fragment {
             @Override
             public void onFailure(Call<Stations> call, Throwable t) {
                 Log.e(TAG, t.toString());
+                TextView errorInfoTextView =
+                        (TextView)rootView.findViewById(R.id.textview_error_info);
+                errorInfoTextView.setText(
+                        "No internet connection found!");
+                errorInfoTextView.setVisibility(TextView.VISIBLE);
             }
         });
+
+        rootView.findViewById(R.id.textview_error_info).setVisibility(TextView.INVISIBLE);
     }
 }

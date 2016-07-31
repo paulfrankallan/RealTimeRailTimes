@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -28,9 +29,6 @@ public class StationBoardFragment extends Fragment {
 
     private static final String TAG = StationBoardFragment.class.getSimpleName();
 
-    public StationBoardFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,9 +37,9 @@ public class StationBoardFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
 
-        String stationCode ;
+        String stationCode;
 
-        if(intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
+        if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
             stationCode = intent.getStringExtra(Intent.EXTRA_TEXT);
             populateServices(rootView, stationCode);
         }
@@ -58,23 +56,37 @@ public class StationBoardFragment extends Fragment {
         call.enqueue(new Callback<StationBoard>() {
             @Override
             public void onResponse(Call<StationBoard> call, Response<StationBoard> rServices) {
+
                 List<Service> services = rServices.body().Service;
-                //Log.d(TAG, "Number of getStations received: " + services.size());
+                if (services != null && !services.isEmpty()) {
 
-                final ListView servicesListView = (ListView)
-                        rootView.findViewById(R.id.listview_services);
+                    Log.d(TAG, "Number of services received: " + services.size());
 
-                final ServiceListAdapter serviceListAdapter = new ServiceListAdapter(getActivity(),
-                        R.layout.list_item_service, services);
+                    final ListView servicesListView = (ListView)
+                            rootView.findViewById(R.id.listview_services);
 
-                servicesListView.setAdapter(serviceListAdapter);
-                servicesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    final ServiceListAdapter serviceListAdapter = new ServiceListAdapter(getActivity(),
+                            R.layout.list_item_service, services);
 
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                        Service service = serviceListAdapter.getItem(position);
-                    }
-                });
+                    servicesListView.setAdapter(serviceListAdapter);
+                    servicesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                            Service service = serviceListAdapter.getItem(position);
+                            // TODO expand service info
+                        }
+                    });
+
+                    rootView.findViewById(R.id.textview_info).setVisibility(TextView.INVISIBLE);
+
+                } else {
+                    TextView noScheduledTrainsTextView =
+                            (TextView)rootView.findViewById(R.id.textview_info);
+                    noScheduledTrainsTextView.setText(
+                            "No trains are scheduled to call at this station for at least 60 minutes.");
+                    noScheduledTrainsTextView.setVisibility(TextView.VISIBLE);
+                }
             }
 
             @Override
