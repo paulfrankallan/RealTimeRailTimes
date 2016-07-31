@@ -1,19 +1,19 @@
-package selfshaper.com.realtimerailtimes;
+package selfshaper.com.realtimerailtimes.stationBoard;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class StationsActivity extends AppCompatActivity {
+import selfshaper.com.realtimerailtimes.R;
 
-    private static final String TAG = StationsActivity.class.getSimpleName();
+public class StationBoardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stations);
+        setContentView(R.layout.activity_station_board);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new StationsListFragment())
+                    .add(R.id.container, new StationBoardFragment())
                     .commit();
         }
     }

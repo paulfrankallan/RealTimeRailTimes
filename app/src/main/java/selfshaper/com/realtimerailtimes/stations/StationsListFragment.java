@@ -1,4 +1,4 @@
-package selfshaper.com.realtimerailtimes;
+package selfshaper.com.realtimerailtimes.stations;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -17,6 +16,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import selfshaper.com.realtimerailtimes.R;
+import selfshaper.com.realtimerailtimes.stationBoard.StationBoardActivity;
 import selfshaper.com.realtimerailtimes.api.OpenDataClient;
 import selfshaper.com.realtimerailtimes.api.OpenDataTransLinkAPI;
 import selfshaper.com.realtimerailtimes.model.Station;
