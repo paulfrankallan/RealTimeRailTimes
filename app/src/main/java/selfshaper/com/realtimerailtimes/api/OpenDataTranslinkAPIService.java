@@ -9,7 +9,7 @@ import selfshaper.com.realtimerailtimes.model.stations.Stations;
 /**
  * Created by Paul.Allan on 30/07/2016.
  */
-public interface OpenDataTransLinkAPI {
+public interface OpenDataTranslinkAPIService {
 
     // Example Stations request
     // Endpoint: http://apis.opendatani.gov.uk/translink/
@@ -18,6 +18,6 @@ public interface OpenDataTransLinkAPI {
 
     // Example StationBoard request
     // Endpoint: http://apis.opendatani.gov.uk/translink/3044C5.xml
-    @GET("/translink/{stationCode}")
+    @GET("/translink/{stationCode}.xml")
     Call<StationBoard> getStationBoard(@Path("stationCode") String stationCode);
 }

@@ -21,7 +21,8 @@ import retrofit2.Response;
 import selfshaper.com.realtimerailtimes.R;
 import selfshaper.com.realtimerailtimes.api.ConverterType;
 import selfshaper.com.realtimerailtimes.api.OpenDataClient;
-import selfshaper.com.realtimerailtimes.api.OpenDataTransLinkAPI;
+import selfshaper.com.realtimerailtimes.api.OpenDataTranslinkAPIService;
+import selfshaper.com.realtimerailtimes.callingPoints.CallingPointsActivity;
 import selfshaper.com.realtimerailtimes.model.stationBoard.Service;
 import selfshaper.com.realtimerailtimes.model.stationBoard.StationBoard;
 
@@ -56,10 +57,10 @@ public class StationBoardFragment extends Fragment {
 
     private void populateServicesForStation(String stationCode) {
 
-        final OpenDataTransLinkAPI apiService =
-                OpenDataClient.getClient(ConverterType.XML).create(OpenDataTransLinkAPI.class);
+        final OpenDataTranslinkAPIService apiService =
+                OpenDataClient.getClient(ConverterType.XML).create(OpenDataTranslinkAPIService.class);
 
-        Call<StationBoard> call = apiService.getStationBoard(stationCode + ".xml");
+        Call<StationBoard> call = apiService.getStationBoard(stationCode);
         call.enqueue(new Callback<StationBoard>() {
             @Override
             public void onResponse(Call<StationBoard> call, Response<StationBoard> rServices) {
@@ -81,7 +82,9 @@ public class StationBoardFragment extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                             Service service = serviceListAdapter.getItem(position);
-                            // TODO expand service info
+                            Intent intent = new Intent(getActivity(), CallingPointsActivity.class)
+                                    .putExtra("service", service);
+                            startActivity(intent);
                         }
                     });
 

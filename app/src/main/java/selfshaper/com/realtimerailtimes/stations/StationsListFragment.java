@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.net.Socket;
 import java.util.List;
 
 import butterknife.BindView;
@@ -23,7 +22,7 @@ import selfshaper.com.realtimerailtimes.R;
 import selfshaper.com.realtimerailtimes.api.ConverterType;
 import selfshaper.com.realtimerailtimes.stationBoard.StationBoardActivity;
 import selfshaper.com.realtimerailtimes.api.OpenDataClient;
-import selfshaper.com.realtimerailtimes.api.OpenDataTransLinkAPI;
+import selfshaper.com.realtimerailtimes.api.OpenDataTranslinkAPIService;
 import selfshaper.com.realtimerailtimes.model.stations.Station;
 import selfshaper.com.realtimerailtimes.model.stations.Stations;
 
@@ -47,8 +46,8 @@ public class StationsListFragment extends Fragment {
 
     private void populateStationNames() {
 
-        final OpenDataTransLinkAPI apiService =
-                OpenDataClient.getClient(ConverterType.GSON).create(OpenDataTransLinkAPI.class);
+        final OpenDataTranslinkAPIService apiService =
+                OpenDataClient.getClient(ConverterType.JSON).create(OpenDataTranslinkAPIService.class);
 
         Call<Stations> call = apiService.stations();
         call.enqueue(new Callback<Stations>() {

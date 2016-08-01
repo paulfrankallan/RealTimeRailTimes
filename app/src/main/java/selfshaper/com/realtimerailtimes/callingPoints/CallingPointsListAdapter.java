@@ -1,4 +1,4 @@
-package selfshaper.com.realtimerailtimes.stationBoard;
+package selfshaper.com.realtimerailtimes.callingPoints;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,18 +11,19 @@ import android.widget.TextView;
 import java.util.List;
 
 import selfshaper.com.realtimerailtimes.R;
+import selfshaper.com.realtimerailtimes.model.stationBoard.CallingPoint;
 import selfshaper.com.realtimerailtimes.model.stationBoard.Service;
 
 /**
  * Created by Paul.Allan on 31/07/2016.
  */
-public class ServiceListAdapter extends ArrayAdapter<Service> {
+public class CallingPointsListAdapter extends ArrayAdapter<CallingPoint> {
 
     Context context;
     int layoutResourceId;
-    List<Service> data = null;
+    List<CallingPoint> data = null;
 
-    public ServiceListAdapter(Context context, int layoutResourceId, List<Service> data) {
+    public CallingPointsListAdapter(Context context, int layoutResourceId, List<CallingPoint> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -40,30 +41,24 @@ public class ServiceListAdapter extends ArrayAdapter<Service> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new ServiceHolder();
-            holder.txtServiceTime = (TextView) row.findViewById(R.id.list_item_service_time_textview);
-            holder.txtServiceDestination = (TextView) row.findViewById(R.id.list_item_service_destination_textview);
-            holder.txtServicePlatform = (TextView) row.findViewById(R.id.list_item_service_platform_textview);
-            holder.txtServiceExpected = (TextView) row.findViewById(R.id.list_item_service_expected_textview);
+            holder.txtCallingAtTime = (TextView) row.findViewById(R.id.list_item_calling_at_time_textview);
+            holder.txtCallingAt = (TextView) row.findViewById(R.id.list_item_calling_at_textview);
 
             row.setTag(holder);
         } else {
             holder = (ServiceHolder) row.getTag();
         }
 
-        Service service = data.get(position);
-        holder.txtServiceTime.setText(service.DepartTime.time);
-        holder.txtServicePlatform.setText(service.Platform.Number);
-        holder.txtServiceDestination.setText(service.Destination1.name);
-        holder.txtServiceExpected.setText(service.ExpectedDepartTime.time);
+        CallingPoint callingPoint = data.get(position);
+        holder.txtCallingAtTime.setText(callingPoint.etdep);
+        holder.txtCallingAt.setText(callingPoint.Name);
 
         return row;
     }
 
     static class ServiceHolder {
 
-        TextView txtServiceTime;
-        TextView txtServiceDestination;
-        TextView txtServicePlatform;
-        TextView txtServiceExpected;
+        TextView txtCallingAtTime;
+        TextView txtCallingAt;
     }
 }

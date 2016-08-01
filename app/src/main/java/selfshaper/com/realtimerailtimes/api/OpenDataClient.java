@@ -22,7 +22,7 @@ public class OpenDataClient {
                         .addConverterFactory(SimpleXmlConverterFactory.create())
                         .build();
                 break;
-            case GSON:
+            case JSON:
                 retrofit = new Retrofit.Builder()
                         .baseUrl(BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
