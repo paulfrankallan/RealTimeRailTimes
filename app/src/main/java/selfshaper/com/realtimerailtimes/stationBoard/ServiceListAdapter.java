@@ -31,24 +31,22 @@ public class ServiceListAdapter extends ArrayAdapter<Service> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View row = convertView;
-        ServiceHolder holder = null;
 
-        if(row == null)
-        {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View row = convertView;
+        ServiceHolder holder;
+
+        if (row == null) {
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new ServiceHolder();
-            holder.txtServiceTime = (TextView)row.findViewById(R.id.list_item_service_time_textview);
-            holder.txtServiceDestination = (TextView)row.findViewById(R.id.list_item_service_destination_textview);
-            holder.txtServicePlatform = (TextView)row.findViewById(R.id.list_item_service_platform_textview);
-            holder.txtServiceExpected = (TextView)row.findViewById(R.id.list_item_service_expected_textview);
+            holder.txtServiceTime = (TextView) row.findViewById(R.id.list_item_service_time_textview);
+            holder.txtServiceDestination = (TextView) row.findViewById(R.id.list_item_service_destination_textview);
+            holder.txtServicePlatform = (TextView) row.findViewById(R.id.list_item_service_platform_textview);
+            holder.txtServiceExpected = (TextView) row.findViewById(R.id.list_item_service_expected_textview);
 
             row.setTag(holder);
-        }
-        else
-        {
+        } else {
             holder = (ServiceHolder) row.getTag();
         }
 
@@ -62,9 +60,14 @@ public class ServiceListAdapter extends ArrayAdapter<Service> {
     }
 
     static class ServiceHolder {
+
+        // Collapsed view data
         TextView txtServiceTime;
         TextView txtServiceDestination;
         TextView txtServicePlatform;
         TextView txtServiceExpected;
+
+        // Expanded view data
+
     }
 }

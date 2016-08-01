@@ -31,21 +31,20 @@ public class StationsListAdapter extends ArrayAdapter<Station> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View row = convertView;
-        StationHolder holder = null;
 
-        if(row == null)
-        {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View row = convertView;
+        StationHolder holder;
+
+        if (row == null) {
+
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new StationHolder();
-            holder.txtStationName = (TextView)row.findViewById(R.id.list_item_station_textview);
+            holder.txtStationName = (TextView) row.findViewById(R.id.list_item_station_textview);
 
             row.setTag(holder);
-        }
-        else
-        {
+        } else {
             holder = (StationHolder) row.getTag();
         }
 
@@ -55,9 +54,7 @@ public class StationsListAdapter extends ArrayAdapter<Station> {
         return row;
     }
 
-    static class StationHolder
-    {
+    static class StationHolder {
         TextView txtStationName;
-        TextView txtStationCode;
     }
 }

@@ -11,13 +11,13 @@ import selfshaper.com.realtimerailtimes.model.stations.Stations;
  */
 public interface OpenDataTransLinkAPI {
 
-    // Example StationBoard request
-    // http://apis.opendatani.gov.uk/translink/
+    // Example Stations request
+    // Endpoint: http://apis.opendatani.gov.uk/translink/
     @GET("translink/")
     Call<Stations> stations();
 
     // Example StationBoard request
-    // http://apis.opendatani.gov.uk/translink/3044C5.xml
+    // Endpoint: http://apis.opendatani.gov.uk/translink/3044C5.xml
     @GET("/translink/{stationCode}")
     Call<StationBoard> getStationBoard(@Path("stationCode") String stationCode);
 }

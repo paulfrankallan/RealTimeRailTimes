@@ -14,19 +14,19 @@ import java.util.List;
 public class StationBoard {
 
     @Attribute
-    private String name;
+    public String name;
 
     @Attribute
-    private String tiploc;
+    public String tiploc;
 
     @Attribute
-    private String crs;
+    public String crs;
 
     @Attribute
-    private String PlatformData;
+    public String PlatformData;
 
     @Attribute
-    private String Timestamp;
+    public String Timestamp;
 
     @Element
     public String TridentId;
