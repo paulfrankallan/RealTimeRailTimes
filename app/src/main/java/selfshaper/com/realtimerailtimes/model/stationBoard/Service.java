@@ -2,6 +2,7 @@ package selfshaper.com.realtimerailtimes.model.stationBoard;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
@@ -140,6 +141,22 @@ public class Service implements Parcelable {
         Destination1 = in.readParcelable(selfshaper.com.realtimerailtimes.model.stationBoard.Destination1.class.getClassLoader());
         ExpectedDepartTime = in.readParcelable(selfshaper.com.realtimerailtimes.model.stationBoard.ExpectedDepartTime.class.getClassLoader());
         Dest1CallingPoints = in.readParcelable(selfshaper.com.realtimerailtimes.model.stationBoard.Dest1CallingPoints.class.getClassLoader());
+    }
+
+    public String getLastReportedStation() {
+        String lastReported = LastReport.station1;
+
+        if (TextUtils.isEmpty(lastReported)) {
+            lastReported = LastReport.station2 != null
+                    ? LastReport.station2
+                    : "";
+        }
+
+        String lastReportedTime = TextUtils.isEmpty(LastReport.time)
+                ? ""
+                : " (" + LastReport.time + ")";
+
+        return lastReported + lastReportedTime;
     }
 
     public static final Creator<Service> CREATOR = new Creator<Service>() {

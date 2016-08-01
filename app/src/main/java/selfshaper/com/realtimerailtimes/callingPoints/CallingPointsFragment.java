@@ -53,8 +53,7 @@ public class CallingPointsFragment extends Fragment {
     }
 
     private void populateCallingPointsForService(Service service) {
-
-        lastReportedTextView.setText(service.Origin1.name);
+        lastReportedTextView.setText(service.getLastReportedStation());
         originTextView.setText(service.Origin1.name);
 
         List<CallingPoint> callingPointList = new ArrayList<>();
