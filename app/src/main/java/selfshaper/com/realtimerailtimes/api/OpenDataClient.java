@@ -9,7 +9,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
  */
 public class OpenDataClient {
 
-    public static final String BASE_URL = "http://apis.opendatani.gov.uk/";
+    public static String BASE_URL = "http://apis.opendatani.gov.uk/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient(ConverterType type) {

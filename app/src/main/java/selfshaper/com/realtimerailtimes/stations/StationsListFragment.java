@@ -29,58 +29,58 @@ import selfshaper.com.realtimerailtimes.model.stations.Stations;
 /**
  * Created by Paul.Allan on 30/07/2016.
  */
-public class StationsListFragment extends Fragment {
+public class StationsListFragment extends Fragment implements StationsView {
 
     private static final String TAG = StationsListFragment.class.getSimpleName();
+
+    private StationsPresenter stationsPresenter;
 
     @BindView(R.id.listview_stations) protected ListView stationsListView;
     @BindView(R.id.textview_error_info) TextView errorInfoTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_stations, container, false);
+
         ButterKnife.bind(this, rootView);
-        populateStationNames();
+
+        stationsPresenter = new StationsPresenter(this,
+                OpenDataClient.getClient(ConverterType.JSON).create(OpenDataTranslinkAPIService.class));
+        stationsPresenter.onCreateView();
+
         return rootView;
     }
 
-    private void populateStationNames() {
+    @Override
+    public void populateStations(List<Station> stations) {
 
-        final OpenDataTranslinkAPIService apiService =
-                OpenDataClient.getClient(ConverterType.JSON).create(OpenDataTranslinkAPIService.class);
+        Log.d(TAG, "Number of stations received: " + stations.size());
 
-        Call<Stations> call = apiService.stations();
-        call.enqueue(new Callback<Stations>() {
+        final StationsListAdapter stationsAdapter = new StationsListAdapter(getActivity(),
+                R.layout.list_item_station, stations);
+
+        stationsListView.setAdapter(stationsAdapter);
+
+        stationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onResponse(Call<Stations> call, Response<Stations> rStations) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                List<Station> stations = rStations.body().getStations();
-                Log.d(TAG, "Number of stations received: " + stations.size());
+                Station station = stationsAdapter.getItem(position);
 
-                final StationsListAdapter stationsAdapter = new StationsListAdapter(getActivity(),
-                        R.layout.list_item_station, stations);
-
-                stationsListView.setAdapter(stationsAdapter);
-                stationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                        Station station = stationsAdapter.getItem(position);
-                        Intent intent = new Intent(getActivity(), StationBoardActivity.class)
-                                .putExtra(Intent.EXTRA_TEXT, station.getCode());
-                        startActivity(intent);
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call<Stations> call, Throwable t) {
-                Log.e(TAG, t.toString());
-                errorInfoTextView.setText("No internet connection found!");
-                errorInfoTextView.setVisibility(TextView.VISIBLE);
+                Intent intent = new Intent(getActivity(), StationBoardActivity.class)
+                        .putExtra(Intent.EXTRA_TEXT, station.getCode());
+                startActivity(intent);
             }
         });
 
         errorInfoTextView.setVisibility(TextView.INVISIBLE);
+    }
+
+    @Override
+    public void showError(int resId) {
+        errorInfoTextView.setText(getText(resId));
+        errorInfoTextView.setVisibility(TextView.VISIBLE);
+        Log.e(TAG, errorInfoTextView.getText().toString());
     }
 }
