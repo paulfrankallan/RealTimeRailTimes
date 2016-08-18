@@ -68,4 +68,27 @@ public class Station {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return code;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || (getClass() != o.getClass() && !(o instanceof Station))) return false;
+
+        Station station = (Station) o;
+
+        if (code != null ? !code.equals(station.getCode()) : station.getCode() != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return code != null ? code.hashCode() : 0;
+    }
 }

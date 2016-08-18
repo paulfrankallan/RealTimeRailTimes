@@ -296,7 +296,6 @@ public class StationsPresenterTest {
                 add(new Station("3042A0", "Adelaide"));
                 add(new Station("3042A1", "Antrim"));
                 add(new Station("3042A3", "Ballycarry"));
-
                 add(new Station("3042A3", "Ballycarry"));
                 add(new Station("3042A3", "Ballycarry"));
                 add(new Station("3042A3", "Ballycarry"));
