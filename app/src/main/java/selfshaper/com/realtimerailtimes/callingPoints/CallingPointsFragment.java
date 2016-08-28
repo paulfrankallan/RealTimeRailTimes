@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,7 +21,7 @@ import selfshaper.com.realtimerailtimes.model.stationBoard.Service;
 /**
  * Created by Paul.Allan on 30/07/2016.
  */
-public class CallingPointsFragment extends Fragment {
+public class CallingPointsFragment extends Fragment implements CallingPointsView {
 
     private static final String TAG = CallingPointsFragment.class.getSimpleName();
 
@@ -35,47 +34,54 @@ public class CallingPointsFragment extends Fragment {
     @BindView(R.id.textview_calling_points_info)
     TextView infoTextView;
 
+    private CallingPointsPresenter callingPointsPresenter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_calling_points, container, false);
         ButterKnife.bind(this, rootView);
 
+        callingPointsPresenter = new CallingPointsPresenter(this);
+
         Intent intent = getActivity().getIntent();
         Service service;
 
         if (intent != null && intent.hasExtra("service")) {
             service = intent.getParcelableExtra("service");
-            populateCallingPointsForService(service);
+            callingPointsPresenter.onCreateView(service);
         }
 
         return rootView;
     }
 
-    private void populateCallingPointsForService(Service service) {
-        lastReportedTextView.setText(service.getLastReportedStation());
-        originTextView.setText(service.Origin1.name);
+    @Override
+    public void populateCallingPointsForService(List<CallingPoint> callingPoints) {
 
-        List<CallingPoint> callingPointList = new ArrayList<>();
-
-        if (service.Dest1CallingPoints != null)
-            callingPointList = service.Dest1CallingPoints.callingPointList;
-
-        if (callingPointList != null && !service.Dest1CallingPoints.callingPointList.isEmpty()) {
-
-            Log.d(TAG, "Number of calling points received: " + callingPointList.size());
+            Log.d(TAG, "Number of calling points received: " + callingPoints.size());
 
             final CallingPointsListAdapter callingPointsListAdapter = new CallingPointsListAdapter(getActivity(),
-                    R.layout.list_item_calling_point, callingPointList);
+                    R.layout.list_item_calling_point, callingPoints);
 
             callingPointsListView.setAdapter(callingPointsListAdapter);
 
             infoTextView.setVisibility(TextView.INVISIBLE);
+    }
 
-        } else {
-            infoTextView.setText(
-                    "No calling points for this service.");
-            infoTextView.setVisibility(TextView.VISIBLE);
-        }
+    @Override
+    public void populateLastReportedText(String lastReported) {
+        lastReportedTextView.setText(lastReported);
+    }
+
+    @Override
+    public void populateOriginText(String origin) {
+        originTextView.setText(origin);
+    }
+
+    @Override
+    public void showInfo(int resId) {
+        infoTextView.setText(getText(resId));
+        infoTextView.setVisibility(TextView.VISIBLE);
+        Log.e(TAG, infoTextView.getText().toString());
     }
 }

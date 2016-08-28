@@ -1,8 +1,8 @@
 package selfshaper.com.realtimerailtimes.api;
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import rx.Observable;
 import selfshaper.com.realtimerailtimes.model.stationBoard.StationBoard;
 import selfshaper.com.realtimerailtimes.model.stations.Stations;
 
@@ -14,10 +14,10 @@ public interface OpenDataTranslinkAPIService {
     // Example Stations request
     // Endpoint: http://apis.opendatani.gov.uk/translink/
     @GET("translink/")
-    Call<Stations> stations();
+    Observable<Stations> stations();
 
     // Example StationBoard request
     // Endpoint: http://apis.opendatani.gov.uk/translink/3044C5.xml
     @GET("/translink/{stationCode}.xml")
-    Call<StationBoard> getStationBoard(@Path("stationCode") String stationCode);
+    Observable<StationBoard> getStationBoard(@Path("stationCode") String stationCode);
 }

@@ -15,21 +15,17 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import selfshaper.com.realtimerailtimes.R;
 import selfshaper.com.realtimerailtimes.api.ConverterType;
 import selfshaper.com.realtimerailtimes.api.OpenDataClient;
 import selfshaper.com.realtimerailtimes.api.OpenDataTranslinkAPIService;
 import selfshaper.com.realtimerailtimes.callingPoints.CallingPointsActivity;
 import selfshaper.com.realtimerailtimes.model.stationBoard.Service;
-import selfshaper.com.realtimerailtimes.model.stationBoard.StationBoard;
 
 /**
  * Created by Paul.Allan on 30/07/2016.
  */
-public class StationBoardFragment extends Fragment {
+public class StationBoardFragment extends Fragment implements StationBoardView {
 
     private static final String TAG = StationBoardFragment.class.getSimpleName();
 
@@ -38,6 +34,8 @@ public class StationBoardFragment extends Fragment {
     @BindView(R.id.textview_last_updated) TextView lastUpdatedTextView;
     @BindView(R.id.textview_info) TextView infoTextView;
 
+    private StationBoardPresenter stationBoardPresenter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -45,62 +43,56 @@ public class StationBoardFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         Intent intent = getActivity().getIntent();
-        String stationCode;
+        String stationCode = "";
 
         if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
             stationCode = intent.getStringExtra(Intent.EXTRA_TEXT);
-            populateServicesForStation(stationCode);
         }
+
+        stationBoardPresenter = new StationBoardPresenter(this,
+                OpenDataClient.getClient(ConverterType.XML).create(OpenDataTranslinkAPIService.class));
+        stationBoardPresenter.onCreateView(stationCode);
 
         return rootView;
     }
 
-    private void populateServicesForStation(String stationCode) {
+    @Override
+    public void populateServicesForStation(List<Service> services) {
 
-        final OpenDataTranslinkAPIService apiService =
-                OpenDataClient.getClient(ConverterType.XML).create(OpenDataTranslinkAPIService.class);
+        Log.d(TAG, "Number of services received: " + services.size());
 
-        Call<StationBoard> call = apiService.getStationBoard(stationCode);
-        call.enqueue(new Callback<StationBoard>() {
-            @Override
-            public void onResponse(Call<StationBoard> call, Response<StationBoard> rServices) {
+        final ServiceListAdapter serviceListAdapter = new ServiceListAdapter(getActivity(),
+                R.layout.list_item_service, services);
 
-                departsFromTextView.setText(rServices.body().name);
-                lastUpdatedTextView.setText(rServices.body().Timestamp);
-
-                List<Service> services = rServices.body().Service;
-                if (services != null && !services.isEmpty()) {
-
-                    Log.d(TAG, "Number of services received: " + services.size());
-
-                    final ServiceListAdapter serviceListAdapter = new ServiceListAdapter(getActivity(),
-                            R.layout.list_item_service, services);
-
-                    servicesListView.setAdapter(serviceListAdapter);
-                    servicesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                            Service service = serviceListAdapter.getItem(position);
-                            Intent intent = new Intent(getActivity(), CallingPointsActivity.class)
-                                    .putExtra("service", service);
-                            startActivity(intent);
-                        }
-                    });
-
-                    infoTextView.setVisibility(TextView.INVISIBLE);
-
-                } else {
-                    infoTextView.setText(
-                            "No trains are scheduled to call at this station for at least 60 minutes.");
-                    infoTextView.setVisibility(TextView.VISIBLE);
-                }
-            }
+        servicesListView.setAdapter(serviceListAdapter);
+        servicesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onFailure(Call<StationBoard> call, Throwable t) {
-                Log.e(TAG, t.toString());
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Service service = serviceListAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), CallingPointsActivity.class)
+                        .putExtra("service", service);
+                startActivity(intent);
             }
         });
+
+        infoTextView.setVisibility(TextView.INVISIBLE);
+    }
+
+    @Override
+    public void populateDepartsFromText(String departsFrom) {
+        departsFromTextView.setText(departsFrom);
+    }
+
+    @Override
+    public void populateLastUpdatedText(String lastUpdated) {
+        lastUpdatedTextView.setText(lastUpdated);
+    }
+
+    @Override
+    public void showInfo(int resId) {
+        infoTextView.setText(getText(resId));
+        infoTextView.setVisibility(TextView.VISIBLE);
+        Log.e(TAG, infoTextView.getText().toString());
     }
 }

@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Rail Times NI</string>
     <string name="network_error">Network error!</string>
+    <string name="no_services_info">"No trains are scheduled to call at this station for at least 60 minutes."</string>
+    <string name="no_calling_points_info">"No calling points for this service."</string>
 </resources>

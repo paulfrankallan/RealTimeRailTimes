@@ -15,16 +15,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Subscription;
 import selfshaper.com.realtimerailtimes.R;
 import selfshaper.com.realtimerailtimes.api.ConverterType;
-import selfshaper.com.realtimerailtimes.stationBoard.StationBoardActivity;
 import selfshaper.com.realtimerailtimes.api.OpenDataClient;
 import selfshaper.com.realtimerailtimes.api.OpenDataTranslinkAPIService;
 import selfshaper.com.realtimerailtimes.model.stations.Station;
-import selfshaper.com.realtimerailtimes.model.stations.Stations;
+import selfshaper.com.realtimerailtimes.stationBoard.StationBoardActivity;
 
 /**
  * Created by Paul.Allan on 30/07/2016.
@@ -37,6 +34,14 @@ public class StationsListFragment extends Fragment implements StationsView {
 
     @BindView(R.id.listview_stations) protected ListView stationsListView;
     @BindView(R.id.textview_error_info) TextView errorInfoTextView;
+
+    private Subscription subscription;
+
+    @Override
+    public void onDestroy() {
+        this.subscription.unsubscribe();
+        super.onDestroy();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

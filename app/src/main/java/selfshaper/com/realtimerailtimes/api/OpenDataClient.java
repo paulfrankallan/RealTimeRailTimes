@@ -1,8 +1,10 @@
 package selfshaper.com.realtimerailtimes.api;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Paul.Allan on 30/07/2016.
@@ -14,16 +16,20 @@ public class OpenDataClient {
 
     public static Retrofit getClient(ConverterType type) {
 
+        RxJavaCallAdapterFactory rxAdapter = RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io());
+
         // Workaround Converter selection as fall-through selection isn't working. See comments below.
         switch (type) {
             case XML:
                 retrofit = new Retrofit.Builder()
+                        .addCallAdapterFactory(rxAdapter)
                         .baseUrl(BASE_URL)
                         .addConverterFactory(SimpleXmlConverterFactory.create())
                         .build();
                 break;
             case JSON:
                 retrofit = new Retrofit.Builder()
+                        .addCallAdapterFactory(rxAdapter)
                         .baseUrl(BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
