@@ -12,7 +12,6 @@ import java.util.List;
 
 import selfshaper.com.realtimerailtimes.R;
 import selfshaper.com.realtimerailtimes.model.stationBoard.CallingPoint;
-import selfshaper.com.realtimerailtimes.model.stationBoard.Service;
 
 /**
  * Created by Paul.Allan on 31/07/2016.

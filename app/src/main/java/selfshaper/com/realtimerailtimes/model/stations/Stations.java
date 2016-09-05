@@ -3,10 +3,12 @@ package selfshaper.com.realtimerailtimes.model.stations;
 /**
  * Created by Paul.Allan on 30/07/2016.
  */
-import java.util.ArrayList;
-import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Stations {
 

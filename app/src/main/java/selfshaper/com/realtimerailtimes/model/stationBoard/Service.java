@@ -6,11 +6,7 @@ import android.text.TextUtils;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Paul.Allan on 30/07/2016.

@@ -15,7 +15,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Subscription;
 import selfshaper.com.realtimerailtimes.R;
 import selfshaper.com.realtimerailtimes.api.ConverterType;
 import selfshaper.com.realtimerailtimes.api.OpenDataClient;
@@ -35,11 +34,8 @@ public class StationsListFragment extends Fragment implements StationsView {
     @BindView(R.id.listview_stations) protected ListView stationsListView;
     @BindView(R.id.textview_error_info) TextView errorInfoTextView;
 
-    private Subscription subscription;
-
     @Override
     public void onDestroy() {
-        this.subscription.unsubscribe();
         super.onDestroy();
     }
 

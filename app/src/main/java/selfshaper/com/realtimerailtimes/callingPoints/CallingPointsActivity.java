@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import selfshaper.com.realtimerailtimes.R;
-import selfshaper.com.realtimerailtimes.stationBoard.StationBoardFragment;
 
 public class CallingPointsActivity extends AppCompatActivity {
 

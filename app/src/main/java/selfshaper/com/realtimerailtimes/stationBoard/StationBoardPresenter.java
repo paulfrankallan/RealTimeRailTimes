@@ -1,7 +1,9 @@
 package selfshaper.com.realtimerailtimes.stationBoard;
 
 import android.util.Log;
+
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
